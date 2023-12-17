@@ -16,29 +16,37 @@ function logThings(context, message) {
   );
 }
 
-function readFile(_path, _cb) {
-  fetch(_path, { mode: "same-origin" })
-    .then(function (_res) {
-      return _res.blob();
-    })
-
-    .then(function (_blob) {
-      var reader = new FileReader();
-
-      reader.addEventListener("loadend", function () {
-        _cb(this.result);
-      });
-
-      reader.readAsText(_blob);
-    });
-}
-
 logThings("Arming", "Warming up the extension...");
 var timeNow = Date.now();
 
-readFile("constants.json", (res) => {
-  let chatElement = document.getElementsByClassName(
-    res["html-chat-element-classname"]
-  )[0];
-  logThings("Armed", "Ok done. Took: " + (Date.now() - timeNow) + "ms");
+fetch(
+  "https://raw.githubusercontent.com/exoad/f_off/main/api/constants.json"
+).then((res) => {
+  res.json().then((constants) => {
+    logThings("Armed", "Ok done. Took: " + (Date.now() - timeNow) + "ms");
+    if (constants["html-chat-element-classname"] !== undefined) {
+      logThings(
+        "API",
+        "VALID constants.json from GitHub with:\n" + JSON.stringify(constants)
+      );
+      let chatElement = document.getElementsByClassName(
+        constants["html-chat-element-classname"]
+      )[0];
+      if (chatElement !== undefined) {
+        logThings(
+          "SUCCESS",
+          "Found chat element: " + chatElement.classList.length + " classes"
+        );
+        document.addEventListener("DOMSubtreeModified", () => {
+          logThings("EVENT", "DOMSubtreeModified -> Reloading app.js");
+          var childrenCount=0;
+          chatElement.children.forEach((child) => {
+            if(child.id.toString())
+          });
+        });
+      }
+    } else {
+      logThings("FAILED", "Loaded constants.json from GitHub but it's invalid");
+    }
+  });
 });

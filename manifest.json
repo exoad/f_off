@@ -24,6 +24,9 @@
             }
       ],
       "permissions": [
-            "activeTab"
+            "activeTab",
+            "*://*.discord.com/*",
+            "*://*.discord.gg/*",
+            "*://raw.githubusercontent.com/exoad/f_off/main/api/*"
       ]
 }
