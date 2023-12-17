@@ -1,5 +1,6 @@
 {
       "html-chat-element-classname": "scrollerInner__059a5",
       "html-chat-message-idname-prefix": "chat-messages-",
-      "html-chat-element-blocked-message-classname": "groupStart__56db5"
+      "html-chat-element-blocked-message-classname": "groupStart__56db5",
+      "html-chat-flex-container": "container__93316"
 }

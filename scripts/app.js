@@ -29,31 +29,42 @@ fetch(
         "API",
         "VALID constants.json from GitHub with:\n" + JSON.stringify(constants)
       );
-      let chatElement = document.getElementsByClassName(
-        constants["html-chat-element-classname"]
-      )[0];
-      if (chatElement !== undefined) {
-        logThings(
-          "SUCCESS",
-          "Found chat element: " + chatElement.classList.length + " classes"
-        );
-        chatElement.addEventListener("DOMSubtreeModified", () => {
-          var childrenCount = 0;
-          let chatElementChildren = chatElement.children;
-          for (var i = 0; i < chatElementChildren.length; i++) {
-            if (
-              chatElementChildren[i].className.equals ===
-              constants["html-chat-element-blocked-message-classname"]
-            ) {
-              childrenCount++;
-            }
-          }
+
+      let x = () => {
+        let chatElement = document.getElementsByClassName(
+          constants["html-chat-element-classname"]
+        )[0];
+        if (chatElement !== undefined) {
           logThings(
-            "EVENT",
-            "DOMSubtreeModified -> Found " + childrenCount + " blocked messages"
+            "SUCCESS",
+            "Found chat element: " + chatElement.classList.length + " classes"
           );
-        });
-      }
+          chatElement.addEventListener("DOMSubtreeModified", () => {
+            var childrenCount = 0;
+            let chatElementChildren = chatElement.children;
+            for (var i = 0; i < chatElementChildren.length; i++) {
+              if (
+                chatElementChildren[i].className ===
+                constants["html-chat-element-blocked-message-classname"]
+              ) {
+                childrenCount++;
+                chatElementChildren[i].remove();
+              }
+            }
+            logThings(
+              "EVENT",
+              "DOMSubtreeModified -> Found " +
+                childrenCount +
+                " blocked message groups"
+            );
+          });
+        }
+      };
+
+      document.addEventListener("DOMContentLoaded", x);
+      document
+        .getElementsByClassName(constants["html-chat-flex-container"])
+        .addEventListener("DOMSubtreeModified", x);
     } else {
       logThings("FAILED", "Loaded constants.json from GitHub but it's invalid");
     }
