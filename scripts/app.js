@@ -29,17 +29,18 @@ fetch(
         "API",
         "VALID constants.json from GitHub with:\n" + JSON.stringify(constants)
       );
-
+      let debounceTimer;
       let x = () => {
-        let chatElement = document.getElementsByClassName(
-          constants["html-chat-element-classname"]
-        )[0];
-        if (chatElement !== undefined) {
-          logThings(
-            "SUCCESS",
-            "Found chat element: " + chatElement.classList.length + " classes"
-          );
-          chatElement.addEventListener("DOMSubtreeModified", () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          let chatElement = document.getElementsByClassName(
+            constants["html-chat-element-classname"]
+          )[0];
+          if (chatElement !== undefined) {
+            logThings(
+              "SUCCESS",
+              "Found chat element: " + chatElement.classList.length + " classes"
+            );
             var childrenCount = 0;
             let chatElementChildren = chatElement.children;
             for (var i = 0; i < chatElementChildren.length; i++) {
@@ -57,13 +58,13 @@ fetch(
                 childrenCount +
                 " blocked message groups"
             );
-          });
-        }
+          }
+        }, constants["debounce_time"]);
       };
 
       document.addEventListener("DOMContentLoaded", x);
       document
-        .getElementsByClassName(constants["html-chat-flex-container"])
+        .getElementsByClassName(constants["html-chat-flex-container"])[0]
         .addEventListener("DOMSubtreeModified", x);
     } else {
       logThings("FAILED", "Loaded constants.json from GitHub but it's invalid");
