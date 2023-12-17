@@ -37,12 +37,21 @@ fetch(
           "SUCCESS",
           "Found chat element: " + chatElement.classList.length + " classes"
         );
-        document.addEventListener("DOMSubtreeModified", () => {
-          logThings("EVENT", "DOMSubtreeModified -> Reloading app.js");
-          var childrenCount=0;
-          chatElement.children.forEach((child) => {
-            if(child.id.toString())
-          });
+        chatElement.addEventListener("DOMSubtreeModified", () => {
+          var childrenCount = 0;
+          let chatElementChildren = chatElement.children;
+          for (var i = 0; i < chatElementChildren.length; i++) {
+            if (
+              chatElementChildren[i].className.equals ===
+              constants["html-chat-element-blocked-message-classname"]
+            ) {
+              childrenCount++;
+            }
+          }
+          logThings(
+            "EVENT",
+            "DOMSubtreeModified -> Found " + childrenCount + " blocked messages"
+          );
         });
       }
     } else {
