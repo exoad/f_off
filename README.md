@@ -1,4 +1,4 @@
-<h1 align="center"> <img src="./assets/icon_96.png" /> F*ck Off </h1>
+<h1 align="center"> <img src="./assets/icon_48.png" /> F*ck Off </h1>
 
 <div align="center">
 <em>
