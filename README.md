@@ -4,6 +4,9 @@
 <em>
 A Firefox extension to hide blocked messages on Discord
 </em>
+<br/>
+<br/>
+<a href="https://addons.mozilla.org/en-US/firefox/addon/f_off/"><img src="https://img.shields.io/badge/Install It!-FF7139?style=for-the-badge&logo=Firefox-Browser&logoColor=white" height=40 /></a>
 </div>
 
 ## File structure
