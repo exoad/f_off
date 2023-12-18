@@ -27,3 +27,7 @@ If you want to make sure the extension is working, do the following:
 3. Head over to `Console` tab
 4. Search for `[F_Off]` and there should be some text looking like the following:
 ![Load Image](repo/image.png)
+
+## Privacy
+
+Look at [`./scripts/app.js`](./scripts/app.js). Nothing is being collected, the extension just access the API JSON file to lookup which DOM elements should be removed (ie considered "blocked messages")
